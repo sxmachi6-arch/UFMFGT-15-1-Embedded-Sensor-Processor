@@ -1,0 +1,11 @@
+# ninja log v5
+25	327	8038419277908645	CMakeFiles/programmingFE.dir/io.c.obj	7a9ba6b4e1195b2a
+41	330	8038419277908645	CMakeFiles/programmingFE.dir/stats.c.obj	4a155196a29f72f5
+0	332	8038419277908645	CMakeFiles/programmingFE.dir/adc.c.obj	6a2c2bf46f5615a9
+15	378	8038419278403948	CMakeFiles/programmingFE.dir/main.c.obj	6b78b459af669245
+379	717	8038419281778387	programmingFE.exe	20c9ee0e42d14019
+4	302	8038428831047033	CMakeFiles/programmingFE.dir/main.c.obj	6b78b459af669245
+303	559	8038428833572190	programmingFE.exe	20c9ee0e42d14019
+4	223	8038466705817556	CMakeFiles/programmingFE.dir/io.c.obj	7a9ba6b4e1195b2a
+224	451	8038466708050825	programmingFE.exe	20c9ee0e42d14019
+4	311	8038470692756985	CMakeFiles/programmingFE.dir/io.c.obj	7a9ba6b4e1195b2a
