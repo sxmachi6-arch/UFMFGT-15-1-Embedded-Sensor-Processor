@@ -1,22 +1,18 @@
-#include <stdio.h>
-#include "adc.h"
 #include "io.h"
 
-int main()
+int readHeader(FILE *fp, FileHeader *header)
 {
-    FILE *fp;
+    size_t result;
 
-    fp = fopen("adc_sensor_log.bin", "rb");
+    result = fread(header,
+                   sizeof(FileHeader),
+                   1,
+                   fp);
 
-    if(fp == NULL)
+    if(result != 1)
     {
-        printf("Failed to open file\n");
-        return 1;
+        return 0;
     }
 
-    printf("File opened successfully\n");
-
-    fclose(fp);
-
-    return 0;
+    return 1;
 }

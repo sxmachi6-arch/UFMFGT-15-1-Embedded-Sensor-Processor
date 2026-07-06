@@ -1,3 +1,3 @@
-C:/Users/m2-nwosu/CLionProjects/programmingFE/cmake-build-debug/CMakeFiles/programmingFE.dir
-C:/Users/m2-nwosu/CLionProjects/programmingFE/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/m2-nwosu/CLionProjects/programmingFE/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/m2-nwosu/CLionProjects/UFMFGT-15-1-Embedded-Sensor-Processor/cmake-build-debug/CMakeFiles/programmingFE.dir
+C:/Users/m2-nwosu/CLionProjects/UFMFGT-15-1-Embedded-Sensor-Processor/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/m2-nwosu/CLionProjects/UFMFGT-15-1-Embedded-Sensor-Processor/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/m2-nwosu/CLionProjects/programmingFE
+# Install script for directory: C:/Users/m2-nwosu/CLionProjects/UFMFGT-15-1-Embedded-Sensor-Processor
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/m2-nwosu/CLionProjects/programmingFE/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/m2-nwosu/CLionProjects/UFMFGT-15-1-Embedded-Sensor-Processor/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
