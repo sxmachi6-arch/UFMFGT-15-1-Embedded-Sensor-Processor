@@ -25,3 +25,17 @@ double calculateMinimum(ADCSample *samples, size_t count)
 
     return minimum;
 }
+double calculateMaximum(ADCSample *samples, size_t count)
+{
+    double maximum = samples[0].voltage;
+
+    for(size_t i = 1; i < count; i++)
+    {
+        if((samples + i)->voltage > maximum)
+        {
+            maximum = (samples + i)->voltage;
+        }
+    }
+
+    return maximum;
+}
