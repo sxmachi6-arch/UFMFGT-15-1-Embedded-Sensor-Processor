@@ -20,16 +20,21 @@ int readSamples(FILE *fp,
                 ADCSample *samples,
                 uint32_t recordCount)
 {
-    size_t recordsRead;
+    ADCRecord record;
 
-    recordsRead = fread(samples,
-                        sizeof(ADCSample),
-                        recordCount,
-                        fp);
-
-    if(recordsRead != recordCount)
+    for(uint32_t i = 0; i < recordCount; i++)
     {
-        return 0;
+        if(fread(&record, sizeof(ADCRecord), 1, fp) != 1)
+        {
+            return 0;
+        }
+
+        samples[i].timestamp = record.timestamp;
+        samples[i].channel_id = record.channel_id;
+        samples[i].raw_value = record.raw_value;
+        samples[i].temperature = record.temperature;
+        samples[i].status_flags = record.status_flags;
+        samples[i].sequence_number = record.sequence_number;
     }
 
     return 1;

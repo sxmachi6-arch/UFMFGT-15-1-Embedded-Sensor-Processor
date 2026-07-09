@@ -18,7 +18,7 @@ typedef struct
     uint8_t status_flags;
     uint32_t sequence_number;
     uint8_t reserved[2];
-} ADCSample;
+} ADCRecord;
 
 typedef struct
 {
@@ -31,6 +31,18 @@ typedef struct
 } FileHeader;
 
 #pragma pack(pop)
+
+typedef struct
+{
+    float timestamp;
+    uint8_t channel_id;
+    uint16_t raw_value;
+    float voltage;
+    int16_t temperature;
+    uint8_t status_flags;
+    uint32_t sequence_number;
+} ADCSample;
+
 void calculateVoltages(ADCSample *samples, size_t sampleCount);
 
 #endif //PROGRAMMINGFE_ADC_H
