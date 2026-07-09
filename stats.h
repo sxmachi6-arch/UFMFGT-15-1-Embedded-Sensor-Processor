@@ -3,6 +3,6 @@
 
 #include "adc.h"
 
-void calculateVoltages(ADCSample *samples, size_t count);
+double calculateMean(ADCSample *samples, size_t count);
 
 #endif
