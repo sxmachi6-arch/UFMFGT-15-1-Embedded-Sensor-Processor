@@ -13,8 +13,6 @@ void calculateVoltages(ADCSample *samples, size_t sampleCount)
         uint16_t rawValue;
 
         rawValue = currentSample->raw_value;
-        float voltage;
-
-        voltage = (rawValue / 4095.0) * 3.3;
+        currentSample->voltage = (rawValue / 4095.0) * 3.3;
     }
 }
