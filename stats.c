@@ -1,4 +1,5 @@
 #include "stats.h"
+#include <math.h>
 
 double calculateMean(ADCSample *samples, size_t count)
 {
@@ -38,4 +39,22 @@ double calculateMaximum(ADCSample *samples, size_t count)
     }
 
     return maximum;
+}
+double calculateStandardDeviation(ADCSample *samples, size_t count)
+{
+    double mean;
+    double sumSquaredDifference = 0.0;
+
+    mean = calculateMean(samples, count);
+
+    for(size_t i = 0; i < count; i++)
+    {
+        double difference;
+
+        difference = (samples + i)->voltage - mean;
+
+        sumSquaredDifference += difference * difference;
+    }
+
+    return sqrt(sumSquaredDifference / count);
 }
