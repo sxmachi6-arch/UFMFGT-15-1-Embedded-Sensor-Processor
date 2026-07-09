@@ -6,5 +6,8 @@
 
 int readHeader(FILE *fp,
                FileHeader *header);
+int readSamples(FILE *fp,
+                ADCSample *samples,
+                uint32_t recordCount);
 
 #endif

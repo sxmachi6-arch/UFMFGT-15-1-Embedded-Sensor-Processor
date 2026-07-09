@@ -31,5 +31,6 @@ typedef struct
 } FileHeader;
 
 #pragma pack(pop)
+void calculateVoltages(ADCSample *samples, size_t sampleCount);
 
 #endif //PROGRAMMINGFE_ADC_H

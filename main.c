@@ -29,6 +29,12 @@ int main()
     printf("Channel Count  : %u\n", header.channel_count);
     printf("Record Count   : %u\n", header.record_count);
     printf("Sample Rate    : %u Hz\n", header.sample_rate_hz);
+    if(header.magic != 0xADC1BEEF)
+{
+    printf("Invalid magic number\n");
+    fclose(fp);
+    return 1;
+}
     samples = malloc(header.record_count * sizeof(ADCSample));
     if(samples == NULL)
     {
@@ -36,22 +42,17 @@ int main()
         fclose(fp);
         return 1;
     }
-    size_t recordsRead;
+    if(readSamples(fp, samples, header.record_count) == 0)
+    {
+        printf("Failed to read all samples\n");
 
-    recordsRead = fread(samples,
-                        sizeof(ADCSample),
-                        header.record_count,
-                        fp);
-if(recordsRead != header.record_count)
-{
-printf("Failed to read all samples\n");
+        free(samples);
+        fclose(fp);
 
-free(samples);
-fclose(fp);
+        return 1;
+    }
 
-return 1;
-}
-    printf("Successfully read %zu samples\n", recordsRead);
+    printf("Successfully read %u samples\n", header.record_count);
     printf("\nFirst ADC Sample:\n");
     printf("Timestamp       : %.2f\n", samples[0].timestamp);
     printf("Channel ID      : %u\n", samples[0].channel_id);

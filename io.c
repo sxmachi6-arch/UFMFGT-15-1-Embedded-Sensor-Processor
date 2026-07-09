@@ -16,3 +16,21 @@ int readHeader(FILE *fp, FileHeader *header)
 
     return 1;
 }
+int readSamples(FILE *fp,
+                ADCSample *samples,
+                uint32_t recordCount)
+{
+    size_t recordsRead;
+
+    recordsRead = fread(samples,
+                        sizeof(ADCSample),
+                        recordCount,
+                        fp);
+
+    if(recordsRead != recordCount)
+    {
+        return 0;
+    }
+
+    return 1;
+}
