@@ -9,5 +9,6 @@ int readHeader(FILE *fp,
 int readSamples(FILE *fp,
                 ADCSample *samples,
                 uint32_t recordCount);
+int writeResults(const char *filename);
 
 #endif

@@ -67,8 +67,12 @@ int main()
     calculateVoltages(samples, header.record_count);
 
     detectFaults(samples, header.record_count);
+    checkSequenceIntegrity(samples, header.record_count);
 
-
+    if(writeResults("results.txt") == 0)
+    {
+        printf("Failed to write results file\n");
+    }
     free(samples);
     fclose(fp);
     return 0;

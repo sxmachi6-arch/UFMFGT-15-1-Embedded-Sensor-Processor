@@ -45,5 +45,6 @@ typedef struct
 
 void calculateVoltages(ADCSample *samples, size_t sampleCount);
 void detectFaults(ADCSample *samples, size_t sampleCount);
+void checkSequenceIntegrity(ADCSample *samples, size_t sampleCount);
 
 #endif //PROGRAMMINGFE_ADC_H

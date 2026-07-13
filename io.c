@@ -39,3 +39,23 @@ int readSamples(FILE *fp,
 
     return 1;
 }
+int writeResults(const char *filename)
+{
+    FILE *fp;
+
+    fp = fopen(filename, "w");
+
+    if(fp == NULL)
+    {
+        return 0;
+    }
+
+    fprintf(fp, "Embedded Sensor Processor Results\n");
+    fprintf(fp, "================================\n\n");
+
+    fprintf(fp, "Analysis completed successfully.\n");
+
+    fclose(fp);
+
+    return 1;
+}

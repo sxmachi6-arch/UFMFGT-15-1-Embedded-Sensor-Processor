@@ -67,4 +67,22 @@ void detectFaults(ADCSample *samples, size_t sampleCount)
         printf("Undervoltage: %d\n", underVoltageCount[channel]);
         printf("Sensor Fault: %d\n", sensorFaultCount[channel]);
     }
+
+}
+void checkSequenceIntegrity(ADCSample *samples, size_t sampleCount)
+{
+    for(size_t i = 1; i < sampleCount; i++)
+    {
+        uint32_t expectedSequence;
+
+        expectedSequence = (samples + i - 1)->sequence_number + 1;
+
+        if((samples + i)->sequence_number != expectedSequence)
+        {
+            printf("Sequence error detected\n");
+            printf("Expected sequence: %u\n", expectedSequence);
+            printf("Actual sequence  : %u\n",
+                   (samples + i)->sequence_number);
+        }
+    }
 }
