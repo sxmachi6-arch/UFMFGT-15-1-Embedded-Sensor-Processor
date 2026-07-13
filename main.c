@@ -62,10 +62,13 @@ int main()
     printf("Sequence Number : %u\n", samples[0].sequence_number);
     printf("\nProcessing all samples...\n");
 
-    for(size_t i = 0; i < header.record_count; i++)
-    {
+    printf("\nProcessing all samples...\n");
 
-    }
+    calculateVoltages(samples, header.record_count);
+
+    detectFaults(samples, header.record_count);
+
+    free(samples);
 
     free(samples);
     fclose(fp);
