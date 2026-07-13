@@ -2,7 +2,7 @@
 // Created by m2-nwosu on 22/06/2026.
 //
 #include "adc.h"
-#include <stdio.h>built
+#include <stdio.h>
 
 
 void calculateVoltages(ADCSample *samples, size_t sampleCount)
@@ -20,28 +20,51 @@ void calculateVoltages(ADCSample *samples, size_t sampleCount)
 }
 void detectFaults(ADCSample *samples, size_t sampleCount)
 {
+    int overVoltageCount[4] = {0};
+    int underVoltageCount[4] = {0};
+    int sensorFaultCount[4] = {0};
+
     for(size_t i = 0; i < sampleCount; i++)
     {
         ADCSample *currentSample;
 
         currentSample = &samples[i];
+
         if(currentSample->voltage > 3.0)
         {
+            overVoltageCount[currentSample->channel_id]++;
+
             printf("Overvoltage detected on channel %u at sample %u\n",
                    currentSample->channel_id,
                    currentSample->sequence_number);
         }
+
         if(currentSample->voltage < 0.3)
         {
+            underVoltageCount[currentSample->channel_id]++;
+
             printf("Undervoltage detected on channel %u at sample %u\n",
                    currentSample->channel_id,
                    currentSample->sequence_number);
         }
+
         if(currentSample->status_flags & 1)
         {
+            sensorFaultCount[currentSample->channel_id]++;
+
             printf("Sensor fault detected on channel %u at sample %u\n",
                    currentSample->channel_id,
                    currentSample->sequence_number);
         }
+    }
+
+    printf("\nFault Summary\n");
+
+    for(int channel = 0; channel < 4; channel++)
+    {
+        printf("\nChannel %d\n", channel);
+        printf("Overvoltage : %d\n", overVoltageCount[channel]);
+        printf("Undervoltage: %d\n", underVoltageCount[channel]);
+        printf("Sensor Fault: %d\n", sensorFaultCount[channel]);
     }
 }

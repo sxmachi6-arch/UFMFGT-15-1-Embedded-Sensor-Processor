@@ -68,7 +68,6 @@ int main()
 
     detectFaults(samples, header.record_count);
 
-    free(samples);
 
     free(samples);
     fclose(fp);
