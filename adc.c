@@ -37,5 +37,11 @@ void detectFaults(ADCSample *samples, size_t sampleCount)
                    currentSample->channel_id,
                    currentSample->sequence_number);
         }
+        if(currentSample->status_flags & 1)
+        {
+            printf("Sensor fault detected on channel %u at sample %u\n",
+                   currentSample->channel_id,
+                   currentSample->sequence_number);
+        }
     }
 }
