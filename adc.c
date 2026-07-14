@@ -18,11 +18,16 @@ void calculateVoltages(ADCSample *samples, size_t sampleCount)
         currentSample->voltage = (rawValue / 4095.0) * 3.3;
     }
 }
-void detectFaults(ADCSample *samples, size_t sampleCount)
+void detectFaults(ADCSample *samples,
+                  size_t sampleCount,
+                  AnalysisResults *results)
 {
-    int overVoltageCount[4] = {0};
-    int underVoltageCount[4] = {0};
-    int sensorFaultCount[4] = {0};
+    for(int channel = 0; channel < 4; channel++)
+    {
+        results->overVoltageCount[channel] = 0;
+        results->underVoltageCount[channel] = 0;
+        results->sensorFaultCount[channel] = 0;
+    }
 
     for(size_t i = 0; i < sampleCount; i++)
     {
@@ -32,7 +37,7 @@ void detectFaults(ADCSample *samples, size_t sampleCount)
 
         if(currentSample->voltage > 3.0)
         {
-            overVoltageCount[currentSample->channel_id]++;
+            results->overVoltageCount[currentSample->channel_id]++;
 
             printf("Overvoltage detected on channel %u at sample %u\n",
                    currentSample->channel_id,
@@ -41,7 +46,7 @@ void detectFaults(ADCSample *samples, size_t sampleCount)
 
         if(currentSample->voltage < 0.3)
         {
-            underVoltageCount[currentSample->channel_id]++;
+            results->underVoltageCount[currentSample->channel_id]++;
 
             printf("Undervoltage detected on channel %u at sample %u\n",
                    currentSample->channel_id,
@@ -50,7 +55,7 @@ void detectFaults(ADCSample *samples, size_t sampleCount)
 
         if(currentSample->status_flags & 1)
         {
-            sensorFaultCount[currentSample->channel_id]++;
+            results->sensorFaultCount[currentSample->channel_id]++;
 
             printf("Sensor fault detected on channel %u at sample %u\n",
                    currentSample->channel_id,
@@ -63,14 +68,18 @@ void detectFaults(ADCSample *samples, size_t sampleCount)
     for(int channel = 0; channel < 4; channel++)
     {
         printf("\nChannel %d\n", channel);
-        printf("Overvoltage : %d\n", overVoltageCount[channel]);
-        printf("Undervoltage: %d\n", underVoltageCount[channel]);
-        printf("Sensor Fault: %d\n", sensorFaultCount[channel]);
+        printf("Overvoltage : %d\n", results->overVoltageCount[channel]);
+        printf("Undervoltage: %d\n", results->underVoltageCount[channel]);
+        printf("Sensor Fault: %d\n", results->sensorFaultCount[channel]);
     }
 
 }
-void checkSequenceIntegrity(ADCSample *samples, size_t sampleCount)
+void checkSequenceIntegrity(ADCSample *samples,
+                            size_t sampleCount,
+                            AnalysisResults *results)
+
 {
+    results->sequenceErrors = 0;
     for(size_t i = 1; i < sampleCount; i++)
     {
         uint32_t expectedSequence;
@@ -78,7 +87,9 @@ void checkSequenceIntegrity(ADCSample *samples, size_t sampleCount)
         expectedSequence = (samples + i - 1)->sequence_number + 1;
 
         if((samples + i)->sequence_number != expectedSequence)
+
         {
+            results->sequenceErrors++;
             printf("Sequence error detected\n");
             printf("Expected sequence: %u\n", expectedSequence);
             printf("Actual sequence  : %u\n",

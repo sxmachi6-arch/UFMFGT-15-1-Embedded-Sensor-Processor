@@ -9,10 +9,7 @@ int main()
     FILE *fp;
     FileHeader header;
     ADCSample *samples;
-    double mean;
-    double minimum;
-    double maximum;
-    double standardDeviation;
+    AnalysisResults results;
     fp = fopen("adc_sensor_log.bin", "rb");
 
     if(fp == NULL)
@@ -73,27 +70,32 @@ int main()
 
     for(uint8_t channel = 0; channel < 4; channel++)
     {
-        mean = calculateMean(samples, header.record_count, channel);
+        results.mean[channel] =
+                calculateMean(samples, header.record_count, channel);
 
-        minimum = calculateMinimum(samples, header.record_count, channel);
+        results.minimum[channel] =
+                calculateMinimum(samples, header.record_count, channel);
 
-        maximum = calculateMaximum(samples, header.record_count, channel);
+        results.maximum[channel] =
+                calculateMaximum(samples, header.record_count, channel);
 
-        standardDeviation = calculateStandardDeviation(samples,
-                                                       header.record_count,
-                                                       channel);
-
-        printf("\nChannel %u\n", channel);
-        printf("Mean Voltage       : %.4f V\n", mean);
-        printf("Minimum Voltage    : %.4f V\n", minimum);
-        printf("Maximum Voltage    : %.4f V\n", maximum);
-        printf("Standard Deviation : %.4f V\n", standardDeviation);
+        results.standardDeviation[channel] =
+                calculateStandardDeviation(samples,
+                                           header.record_count,
+                                           channel);
+        printf("Mean Voltage       : %.4f V\n", results.mean[channel]);
+        printf("Minimum Voltage    : %.4f V\n", results.minimum[channel]);
+        printf("Maximum Voltage    : %.4f V\n", results.maximum[channel]);
+        printf("Standard Deviation : %.4f V\n", results.standardDeviation[channel]);
     }
-    detectFaults(samples, header.record_count);
-    checkSequenceIntegrity(samples, header.record_count);
+    detectFaults(samples,
+                 header.record_count,
+                 &results);
+    checkSequenceIntegrity(samples,
+                           header.record_count,
+                           &results);
 
-    if(writeResults("results.txt") == 0)
-    {
+    if(writeResults("results.txt", &results) == 0) {
         printf("Failed to write results file\n");
     }
     free(samples);

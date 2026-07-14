@@ -44,10 +44,10 @@ typedef struct
 } ADCSample;
 typedef struct
 {
-    double mean;
-    double minimum;
-    double maximum;
-    double standardDeviation;
+    double mean[4];
+    double minimum[4];
+    double maximum[4];
+    double standardDeviation[4];
 
     int overVoltageCount[4];
     int underVoltageCount[4];
@@ -57,7 +57,11 @@ typedef struct
 
 } AnalysisResults;
 void calculateVoltages(ADCSample *samples, size_t sampleCount);
-void detectFaults(ADCSample *samples, size_t sampleCount);
-void checkSequenceIntegrity(ADCSample *samples, size_t sampleCount);
+void detectFaults(ADCSample *samples,
+                  size_t sampleCount,
+                  AnalysisResults *results);
+void checkSequenceIntegrity(ADCSample *samples,
+                            size_t sampleCount,
+                            AnalysisResults *results);
 
 #endif //PROGRAMMINGFE_ADC_H
