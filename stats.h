@@ -3,9 +3,20 @@
 
 #include "adc.h"
 
-double calculateMean(ADCSample *samples, size_t count);
-double calculateMinimum(ADCSample *samples, size_t count);
-double calculateMaximum(ADCSample *samples, size_t count);
-double calculateStandardDeviation(ADCSample *samples, size_t count);
+double calculateMean(ADCSample *samples,
+                     size_t count,
+                     uint8_t channel);
+
+double calculateMinimum(ADCSample *samples,
+                        size_t count,
+                        uint8_t channel);
+
+double calculateMaximum(ADCSample *samples,
+                        size_t count,
+                        uint8_t channel);
+
+double calculateStandardDeviation(ADCSample *samples,
+                                  size_t count,
+                                  uint8_t channel);
 
 #endif

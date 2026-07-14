@@ -26,4 +26,5 @@ CMakeFiles/programmingFE.dir/main.c.obj: \
  C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
  C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stddef.h \
  C:/PROGRA~1/JETBRA~1/CLION2~1.3/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
- C:\Users\m2-nwosu\CLionProjects\UFMFGT-15-1-Embedded-Sensor-Processor\io.h
+ C:\Users\m2-nwosu\CLionProjects\UFMFGT-15-1-Embedded-Sensor-Processor\io.h \
+ C:\Users\m2-nwosu\CLionProjects\UFMFGT-15-1-Embedded-Sensor-Processor\stats.h

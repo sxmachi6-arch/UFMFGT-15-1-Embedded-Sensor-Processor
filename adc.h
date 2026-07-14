@@ -42,7 +42,20 @@ typedef struct
     uint8_t status_flags;
     uint32_t sequence_number;
 } ADCSample;
+typedef struct
+{
+    double mean;
+    double minimum;
+    double maximum;
+    double standardDeviation;
 
+    int overVoltageCount[4];
+    int underVoltageCount[4];
+    int sensorFaultCount[4];
+
+    int sequenceErrors;
+
+} AnalysisResults;
 void calculateVoltages(ADCSample *samples, size_t sampleCount);
 void detectFaults(ADCSample *samples, size_t sampleCount);
 void checkSequenceIntegrity(ADCSample *samples, size_t sampleCount);

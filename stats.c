@@ -1,60 +1,111 @@
 #include "stats.h"
 #include <math.h>
 
-double calculateMean(ADCSample *samples, size_t count)
+double calculateMean(ADCSample *samples,
+                      size_t count,
+                      uint8_t channel)
 {
     double sum = 0.0;
+    size_t sampleCount = 0;
 
     for(size_t i = 0; i < count; i++)
     {
-        sum += (samples + i)->voltage;
+        if((samples + i)->channel_id == channel)
+        {
+            sum += (samples + i)->voltage;
+            sampleCount++;
+        }
     }
 
-    return sum / count;
-}
-double calculateMinimum(ADCSample *samples, size_t count)
-{
-    double minimum = samples[0].voltage;
-
-    for(size_t i = 1; i < count; i++)
+    if(sampleCount == 0)
     {
-        if((samples + i)->voltage < minimum)
+        return 0.0;
+    }
+
+    return sum / sampleCount;
+}
+double calculateMinimum(ADCSample *samples,
+                        size_t count,
+                        uint8_t channel)
+{
+    double minimum = 3.3;
+    int found = 0;
+
+    for(size_t i = 0; i < count; i++)
+    {
+        if((samples + i)->channel_id == channel)
         {
-            minimum = (samples + i)->voltage;
+            if(!found || (samples + i)->voltage < minimum)
+            {
+                minimum = (samples + i)->voltage;
+                found = 1;
+            }
         }
+    }
+
+    if(!found)
+    {
+        return 0.0;
     }
 
     return minimum;
 }
-double calculateMaximum(ADCSample *samples, size_t count)
+double calculateMaximum(ADCSample *samples,
+                        size_t count,
+                        uint8_t channel)
 {
-    double maximum = samples[0].voltage;
+    double maximum = 0.0;
+    int found = 0;
 
-    for(size_t i = 1; i < count; i++)
+    for(size_t i = 0; i < count; i++)
     {
-        if((samples + i)->voltage > maximum)
+        if((samples + i)->channel_id == channel)
         {
-            maximum = (samples + i)->voltage;
+            if(!found || (samples + i)->voltage > maximum)
+            {
+                maximum = (samples + i)->voltage;
+                found = 1;
+            }
         }
+    }
+
+    if(!found)
+    {
+        return 0.0;
     }
 
     return maximum;
 }
-double calculateStandardDeviation(ADCSample *samples, size_t count)
+
+double calculateStandardDeviation(ADCSample *samples,
+                                  size_t count,
+                                  uint8_t channel)
 {
     double mean;
     double sumSquaredDifference = 0.0;
+    size_t sampleCount = 0;
 
-    mean = calculateMean(samples, count);
+    mean = calculateMean(samples, count, channel);
 
     for(size_t i = 0; i < count; i++)
     {
-        double difference;
+        if((samples + i)->channel_id == channel)
+        {
+            double difference;
 
-        difference = (samples + i)->voltage - mean;
+            difference = (samples + i)->voltage - mean;
 
-        sumSquaredDifference += difference * difference;
+            sumSquaredDifference += difference * difference;
+
+            sampleCount++;
+        }
     }
 
-    return sqrt(sumSquaredDifference / count);
+    if(sampleCount == 0)
+    {
+        return 0.0;
+    }
+
+    return sqrt(sumSquaredDifference / sampleCount);
 }
+
